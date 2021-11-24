@@ -22,8 +22,6 @@ export const currenciesResponse = (currencies) => ({
 
 export const fetchCurrenciesKeys = () => async (dispatch) => {
   const response = await fetchAPI();
-  const currencies = Object.values(response);
-  currencies.filter((curr) => curr.codein !== 'BRLT');
-
+  const currencies = Object.keys(response);
   dispatch(currenciesResponse(currencies));
 };
