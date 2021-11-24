@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const METHOD_LIST = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const TAG_LIST = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -16,7 +17,8 @@ class WalletFormOptions extends React.Component {
           name="currency"
           data-testid="currency-input"
         >
-          <option>default option</option>
+          <option>USD</option>
+          <option>EUR</option>
         </select>
         Method:
         <select
@@ -46,7 +48,11 @@ WalletFormOptions.propTypes = {
   method: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
   handlerChanges: PropTypes.func.isRequired,
-
+  // currencies: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
 };
 
-export default WalletFormOptions;
+const mapStateToProps = (state) => ({
+  currencies: state.wallet.currencies,
+});
+
+export default connect(mapStateToProps)(WalletFormOptions);
