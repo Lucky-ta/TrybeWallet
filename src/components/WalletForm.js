@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrencies, walletAction } from '../actions';
+import { walletAction } from '../actions';
 import WalletFormOptions from './WalletFormOptions';
 import fetchAPI from '../helper/fetchAPI';
 
@@ -29,11 +29,6 @@ class WalletForm extends React.Component {
     };
     this.handlerChanges = this.handlerChanges.bind(this);
     this.saveExpenses = this.saveExpenses.bind(this);
-    this.saveCurrencies = this.saveCurrencies.bind(this);
-  }
-
-  componentDidMount() {
-    this.saveCurrencies();
   }
 
   handlerChanges({ target }) {
@@ -53,14 +48,6 @@ class WalletForm extends React.Component {
       id: prevIDState.id + 1,
       ...INITIAL_STATE,
     }));
-  }
-
-  async saveCurrencies() {
-    const { storeCurrencies } = this.props;
-    const response = await fetchAPI();
-
-    const currencies = Object.keys(response);
-    storeCurrencies(currencies);
   }
 
   render() {
@@ -102,12 +89,10 @@ class WalletForm extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   storeExpense: (expenses) => dispatch(walletAction(expenses)),
-  storeCurrencies: (currencies) => dispatch(getCurrencies(currencies)),
 });
 
 WalletForm.propTypes = {
   storeExpense: PropTypes.func.isRequired,
-  storeCurrencies: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(WalletForm);

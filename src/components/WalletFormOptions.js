@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { fetchCurrenciesKeys } from '../actions';
+import CurrencyForm from './CurrencyForm';
 
 const METHOD_LIST = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const TAG_LIST = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletFormOptions extends React.Component {
+  componentDidMount() {
+    const { getCurrencies } = this.props;
+    getCurrencies();
+  }
+
   render() {
-    const { tag, method, currency, handlerChanges } = this.props;
+    const { tag, method, currency, handlerChanges, currencies } = this.props;
+
     return (
       <div>
-        currency:
-        <select
-          onChange={ handlerChanges }
-          value={ currency }
-          name="currency"
-          data-testid="currency-input"
-        >
-          <option>USD</option>
-          <option>EUR</option>
-        </select>
+        <CurrencyForm
+          handlerChanges={ handlerChanges }
+          currency={ currency }
+          currencies={ currencies }
+        />
         Method:
         <select
           onChange={ handlerChanges }
@@ -48,11 +51,16 @@ WalletFormOptions.propTypes = {
   method: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,
   handlerChanges: PropTypes.func.isRequired,
-  // currencies: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getCurrencies: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(WalletFormOptions);
+const mapDispatchToProps = (dispatch) => ({
+  getCurrencies: () => dispatch(fetchCurrenciesKeys()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WalletFormOptions);
