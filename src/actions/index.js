@@ -25,3 +25,5 @@ export const fetchCurrenciesKeys = () => async (dispatch) => {
   const currencies = Object.keys(response);
   dispatch(currenciesResponse(currencies));
 };
+
+//
