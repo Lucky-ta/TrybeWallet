@@ -17,4 +17,5 @@ npm install
 ```sh
 npm start
 ```
-ou entre neste link para visualizar o projeto: <a href=“https://trybe-wallet-hkv3bklvv-lucky-ta.vercel.app/“>Projeto</a>
+ou entre no link abaixo para visualizar o projeto funcionando:
+https://trybe-wallet-hkv3bklvv-lucky-ta.vercel.app/
