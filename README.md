@@ -17,3 +17,4 @@ npm install
 ```sh
 npm start
 ```
+ou entre neste link: trybe-wallet-4yjt0xn6b-lucky-ta.vercel.app
